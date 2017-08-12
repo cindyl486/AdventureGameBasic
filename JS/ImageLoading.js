@@ -1,7 +1,7 @@
 var backgroundPic = document.createElement("img");
-var carPic = document.createElement("img");
-var otherCarPic = document.createElement("img");
-var trackPics = [];
+var warriorPic = document.createElement("img");
+var otherWarriorPic = document.createElement("img");
+var worldPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
 
@@ -20,11 +20,11 @@ function beginLoadingImage(imgVar, fileName) {
 
 // next 3 functions were commented out since helper function (above) was created to shorten the script
 
-/*function carImageLoad() {
-    beginLoadingImage(carPic.src, "turtle.png");
+/*function warriorImageLoad() {
+    beginLoadingImage(warriorPic.src, "turtle.png");
 }
 
-function trackLoadImages() {
+function worldLoadImages() {
     beginLoadingImage(wallPic.src, "coralwall.png")
 }
 
@@ -33,21 +33,21 @@ function backgroundLoadImage() {
     canvasContext.drawImage(backgroundPic, 0, 0);
 }*/
 
-function loadImageForTrackCode(trackCode, fileName) {
-    trackPics[trackCode] = document.createElement("img");
-    beginLoadingImage(trackPics[trackCode], fileName);
+function loadImageForWorldCode(worldCode, fileName) {
+    worldPics[worldCode] = document.createElement("img");
+    beginLoadingImage(worldPics[worldCode], fileName);
 }
 
 function loadImages() {      
     var imageList = [
         { varName: backgroundPic, theFile: "ocean.png" },   
-        { varName: carPic, theFile: "turtle.png" },
-        // { varName: otherCarPic, theFile: "jellyfish.png" },
+        { varName: warriorPic, theFile: "turtle.png" },
+        // { varName: otherWarriorPic, theFile: "jellyfish.png" },
 
-        { trackType: TRACK_WALL, theFile: "coralwall.png" },
-        { trackType: TRACK_ANEMONE, theFile: "Anemone.png" },
-        { trackType: TRACK_FLAG, theFile: "flag.png" },
-        { trackType: TRACK_GOAL, theFile: "finishline.png" }
+        { worldType: WORLD_WALL, theFile: "coralwall.png" },
+        { worldType: WORLD_ANEMONE, theFile: "Anemone.png" },
+        { worldType: WORLD_FLAG, theFile: "flag.png" },
+        { worldType: WORLD_GOAL, theFile: "finishline.png" }
     ];  
 
     picsToLoad = imageList.length;
@@ -56,7 +56,7 @@ function loadImages() {
         if (imageList[i].varName != undefined) {
             beginLoadingImage(imageList[i].varName, imageList[i].theFile);
         } else {
-            loadImageForTrackCode(imageList[i].trackType, imageList[i].theFile);
+            loadImageForWorldCode(imageList[i].worldType, imageList[i].theFile);
         }
     } // don't have to manually count how many images there are
 } // shortcut created 

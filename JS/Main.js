@@ -1,7 +1,7 @@
 var canvas, canvasContext;
 
-// var blueCar = new carClass();
-var greenCar = new carClass();
+// var blueWarrior = new warriorClass();
+var greenWarrior = new warriorClass();
 
 
 window.onload = function () {
@@ -24,9 +24,9 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function loadLevel(whichLevel) {
-    trackGrid = whichLevel.slice();
-    greenCar.reset(carPic, "Squirt");
-    // blueCar.reset(otherCarPic, "Squishy");
+    worldGrid = whichLevel.slice();
+    greenWarrior.reset(warriorPic, "Squirt");
+    // blueWarrior.reset(otherWarriorPic, "Squishy");
 
     // levelOne[30] = 5;
     // can setup various types of levels with code above
@@ -38,8 +38,8 @@ function updateAll() {
 }
 
 function moveAll() {
-    greenCar.move();
-    // blueCar.move();
+    greenWarrior.move();
+    // blueWarrior.move();
 }
 
 /*function clearScreen() {
@@ -51,7 +51,7 @@ function drawAll() {
 
     canvasContext.drawImage(backgroundPic, 0, 0);
     drawGoal();
-    greenCar.draw();
-    // blueCar.draw();
-    drawTracks();
+    greenWarrior.draw();
+    // blueWarrior.draw();
+    drawWorlds();
 }

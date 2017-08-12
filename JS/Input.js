@@ -20,11 +20,11 @@ function updateMousePos(evt) {
     mouseX = evt.clientX - rect.left - root.scrollLeft;
     mouseY = evt.clientY - rect.top - root.scrollTop;
 
-    // cheat / hack to test car in any position
-    /*carX = mouseX;
-    carY = mouseY;
-    carSpeedX = 4;
-    carSpeedY = -4;*/
+    // cheat / hack to test warrior in any position
+    /*warriorX = mouseX;
+    warriorY = mouseY;
+    warriorSpeedX = 4;
+    warriorSpeedY = -4;*/
 }
 
 function setupInput() {
@@ -33,35 +33,35 @@ function setupInput() {
     document.addEventListener('keydown', keyPressed);
     document.addEventListener('keyup', keyReleased);
 
-    greenCar.setupInput(KEY_W, KEY_D, KEY_S, KEY_A);
-    // blueCar.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW);
+    greenWarrior.setupInput(KEY_W, KEY_D, KEY_S, KEY_A);
+    // blueWarrior.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW);
 }
 
-function keySet(keyEvent, whichCar, setTo) {
-    if (keyEvent.keyCode == whichCar.controlKeyLeft) {
-        whichCar.keyHeld_TurnLeft = setTo;
+function keySet(keyEvent, whichWarrior, setTo) {
+    if (keyEvent.keyCode == whichWarrior.controlKeyLeft) {
+        whichWarrior.keyHeld_TurnLeft = setTo;
     }
-    if (keyEvent.keyCode == whichCar.controlKeyRight) {
-        whichCar.keyHeld_TurnRight = setTo;
+    if (keyEvent.keyCode == whichWarrior.controlKeyRight) {
+        whichWarrior.keyHeld_TurnRight = setTo;
     }
-    if (keyEvent.keyCode == whichCar.controlKeyUp) {
-        whichCar.keyHeld_Gas = setTo;
+    if (keyEvent.keyCode == whichWarrior.controlKeyUp) {
+        whichWarrior.keyHeld_Gas = setTo;
     }
-    if (keyEvent.keyCode == whichCar.controlKeyDown) {
-        whichCar.keyHeld_Reverse = setTo;
+    if (keyEvent.keyCode == whichWarrior.controlKeyDown) {
+        whichWarrior.keyHeld_Reverse = setTo;
     }
 }
 
 function keyPressed(evt) {
     // console.log("Key pressed: "+evt.keyCode);
-    keySet(evt,greenCar, true);
-    // keySet(evt,blueCar, true);
+    keySet(evt,greenWarrior, true);
+    // keySet(evt,blueWarrior, true);
     
     evt.preventDefault(); // prevents screen scrolling
 }
 
 function keyReleased(evt) {
     // console.log("Key released: "+evt.keyCode);
-    keySet(evt,greenCar, false);
-    // keySet(evt,blueCar, false);
+    keySet(evt,greenWarrior, false);
+    // keySet(evt,blueWarrior, false);
 }

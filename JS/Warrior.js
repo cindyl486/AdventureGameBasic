@@ -4,14 +4,14 @@ const REVERSE_POWER = 0.2;
 const TURN_RATE = 0.06;
 const MIN_SPEED_TO_TURN = 0.5;
 
-function carClass() {
+function warriorClass() {
 
     this.x = 75;
     this.y = 75;
     this.ang = 0;
     this.speed = 0;
-    this.myCarPic; // which picture to use
-    this.name = "Untitled Car"; 
+    this.myWarriorPic; // which picture to use
+    this.name = "Untitled Warrior"; 
     
     this.keyHeld_Gas = false;
     this.keyHeld_Reverse = false;
@@ -30,31 +30,31 @@ function carClass() {
         this.controlKeyLeft = leftKey; 
     }
 
-    this.reset = function (whichImage, carName) {
-        this.name = carName; 
-        this.myCarPic = whichImage;
+    this.reset = function (whichImage, warriorName) {
+        this.name = warriorName; 
+        this.myWarriorPic = whichImage;
         this.speed = 0;
 
-        for (var eachRow = 0; eachRow < TRACK_ROWS; eachRow++) {
-            for (var eachCol = 0; eachCol < TRACK_COLS; eachCol++) {
+        for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
+            for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
                 var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-                if (trackGrid[arrayIndex] == TRACK_PLAYERSTART) {
-                    trackGrid[arrayIndex] = TRACK_ROAD;
+                if (worldGrid[arrayIndex] == WORLD_PLAYERSTART) {
+                    worldGrid[arrayIndex] = WORLD_ROAD;
                     this.ang = -Math.PI / 2;
-                    this.x = eachCol * TRACK_W + TRACK_W / 2;
-                    this.y = eachRow * TRACK_H + TRACK_H / 2;
+                    this.x = eachCol * WORLD_W + WORLD_W / 2;
+                    this.y = eachRow * WORLD_H + WORLD_H / 2;
                     return;
                 } // end of player start if
             } // end of col for
         } // end of row for
         console.log("NO PLAYER START FOUND!");
-    } // end of carReset func
+    } // end of warriorReset func
 
     this.move = function () {
         this.speed *= GROUNDSPEED_DECAY_MULT;
-        // slows car down
-        // if carSpeed is negative, the car would reverse backwards
-        // if carspeed is >1, car would move faster 
+        // slows warrior down
+        // if warriorSpeed is negative, the warrior would reverse backwards
+        // if warriorspeed is >1, warrior would move faster 
 
         if (this.keyHeld_Gas) {
             this.speed += DRIVE_POWER;
@@ -74,11 +74,11 @@ function carClass() {
         this.x += Math.cos(this.ang) * this.speed;
         this.y += Math.sin(this.ang) * this.speed;
 
-        carTrackHandling(this);
+        warriorWorldHandling(this);
     }
 
     this.draw = function () {
-        // colorCircle(carX,carY, 10, 'white'); // draw car
-        drawBitmapCenteredWithRotation(this.myCarPic, this.x, this.y, this.ang);
+        // colorCircle(warriorX,warriorY, 10, 'white'); // draw warrior
+        drawBitmapCenteredWithRotation(this.myWarriorPic, this.x, this.y, this.ang);
     }
 }
