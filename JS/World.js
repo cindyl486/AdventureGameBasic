@@ -1,6 +1,6 @@
-const WORLD_W = 40;
-const WORLD_H = 40;
-const WORLD_GAP = 2;
+const WORLD_W = 50;
+const WORLD_H = 50;
+// const WORLD_GAP = 2;
 const WORLD_COLS = 20;
 const WORLD_ROWS = 15;
 var levelOne =
@@ -14,7 +14,7 @@ var levelOne =
             1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 5, 0, 0, 1, 0, 0, 1,
             1, 0, 0, 1, 0, 0, 5, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
             1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 5, 0, 0, 1, 0, 0, 1, 0, 0, 1,
-            1, 2, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 5, 0, 0, 1,
+            1, 0, 2, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 5, 0, 0, 1,
             1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
             0, 0, 3, 0, 0, 0, 1, 4, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1,
             0, 0, 3, 0, 0, 0, 1, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1,
@@ -53,10 +53,10 @@ function warriorWorldHandling(whichWarrior) {
         } else if (tileHere != WORLD_ROAD) {
             // next 2 lines added to fix a bug
             // undoes the warrior movement which burrows it into the wall
-            whichWarrior.x -= Math.cos(whichWarrior.ang) * whichWarrior.speed;
-            whichWarrior.y -= Math.sin(whichWarrior.ang) * whichWarrior.speed;
+            /* whichWarrior.x -= Math.cos(whichWarrior.ang) * whichWarrior.speed;
+            whichWarrior.y -= Math.sin(whichWarrior.ang) * whichWarrior.speed;*/
 
-            whichWarrior.speed *= -0.5;
+            // whichWarrior.speed *= -0.5;
         } //end of world found
     } // end of valid col and rol
 } // end of warriorWorldHandling function
