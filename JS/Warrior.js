@@ -61,7 +61,7 @@ function warriorClass() {
         // if warriorspeed is >1, warrior would move faster 
 
         if (this.keyHeld_North) {
-            nextY += PLAYER_MOVE_SPEED;
+            nextY -= PLAYER_MOVE_SPEED;
         }
         if (this.keyHeld_West) {
             nextX -= PLAYER_MOVE_SPEED;
@@ -70,8 +70,17 @@ function warriorClass() {
             nextX += PLAYER_MOVE_SPEED;
         }
         if (this.keyHeld_South) {
-            nextY -= PLAYER_MOVE_SPEED;
+            nextY += PLAYER_MOVE_SPEED;
         }
+
+        
+
+        var validMove = warriorWorldHandling(this, nextX, nextY);
+        console.log("valid move" + validMove);
+        if (validMove) {
+            this.x = nextX;
+            this.y = nextY;
+        } 
         /* if (Math.abs(this.speed) > MIN_SPEED_TO_TURN) {
             if (this.keyHeld_West) {
                 this.ang -= TURN_RATE;
@@ -84,7 +93,7 @@ function warriorClass() {
         this.x += Math.cos(this.ang) * this.speed;
         this.y += Math.sin(this.ang) * this.speed; */
 
-        warriorWorldHandling(this);
+        
     }
 
     this.draw = function () {

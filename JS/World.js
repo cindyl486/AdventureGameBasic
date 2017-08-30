@@ -1,24 +1,21 @@
 const WORLD_W = 50;
 const WORLD_H = 50;
 // const WORLD_GAP = 2;
-const WORLD_COLS = 20;
-const WORLD_ROWS = 15;
+const WORLD_COLS = 16;
+const WORLD_ROWS = 12;
 var levelOne =
-           [4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4,
-            4, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
-            4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-            1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1,
-            1, 0, 0, 0, 1, 1, 1, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0, 1,
-            1, 0, 0, 1, 1, 0, 0, 1, 4, 4, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1,
-            1, 0, 0, 1, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1,
-            1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 5, 0, 0, 1, 0, 0, 1,
-            1, 0, 0, 1, 0, 0, 5, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
-            1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 5, 0, 0, 1, 0, 0, 1, 0, 0, 1,
-            1, 0, 2, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 5, 0, 0, 1,
-            1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
-            0, 0, 3, 0, 0, 0, 1, 4, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1,
-            0, 0, 3, 0, 0, 0, 1, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1,
-            1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 4];
+           [4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            4, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+            4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 
+            1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 
+            1, 0, 0, 0, 1, 1, 1, 4, 4, 4, 4, 1, 1, 1, 0, 1, 
+            1, 0, 0, 1, 1, 0, 0, 1, 4, 4, 1, 1, 0, 0, 0, 1,
+            1, 0, 0, 1, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 0, 1, 
+            1, 0, 0, 1, 0, 0, 5, 0, 0, 1, 1, 0, 0, 5, 0, 1, 
+            1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 5, 0, 0, 1, 0, 1, 
+            1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 
+            1, 0, 2, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 var worldGrid = [];
 
 const WORLD_ROAD = 0;
@@ -27,6 +24,8 @@ const WORLD_PLAYERSTART = 2;
 const WORLD_GOAL = 3;
 const WORLD_ANEMONE = 4;
 const WORLD_FLAG = 5;
+const WORLD_DOOR = 6;
+const WORLD_KEY = 7;
 
 function returnTileTypeAtColRow(col, row) {
     if (col >= 0 && col < WORLD_COLS &&
@@ -38,9 +37,11 @@ function returnTileTypeAtColRow(col, row) {
     }
 }
 
-function warriorWorldHandling(whichWarrior) {
-    var warriorWorldCol = Math.floor(whichWarrior.x / WORLD_W);
-    var warriorWorldRow = Math.floor(whichWarrior.y / WORLD_H);
+// returns true if a valid move and false if blocked
+
+function warriorWorldHandling(whichWarrior, testX, testY) {
+    var warriorWorldCol = Math.floor(testX / WORLD_W);
+    var warriorWorldRow = Math.floor(testY / WORLD_H);
     var worldIndexUnderWarrior = rowColToArrayIndex (warriorWorldCol, warriorWorldRow);
 
     if (warriorWorldCol >= 0 && warriorWorldCol < WORLD_COLS &&
@@ -50,7 +51,9 @@ function warriorWorldHandling(whichWarrior) {
         if (tileHere == WORLD_GOAL) {
             console.log(whichWarrior.name + " WINS!");
             loadLevel(levelOne);
-        } else if (tileHere != WORLD_ROAD) {
+            return true;
+        } else if (tileHere == WORLD_ROAD) {
+            return true;
             // next 2 lines added to fix a bug
             // undoes the warrior movement which burrows it into the wall
             /* whichWarrior.x -= Math.cos(whichWarrior.ang) * whichWarrior.speed;
@@ -58,7 +61,11 @@ function warriorWorldHandling(whichWarrior) {
 
             // whichWarrior.speed *= -0.5;
         } //end of world found
+        else {
+            return false;
+        }
     } // end of valid col and rol
+    return false;
 } // end of warriorWorldHandling function
 
 function rowColToArrayIndex(col, row) {
